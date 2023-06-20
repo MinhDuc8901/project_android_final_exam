@@ -17,7 +17,7 @@ import java.util.List;
 
 public class DatabaseClassroom extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ManagerStudents";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
     private static final String TABLE_NAME = "Classrooms";
 
     private static final String KEY_ID = "id";
@@ -63,5 +63,15 @@ public class DatabaseClassroom extends SQLiteOpenHelper {
             cursor.moveToNext();
         }
         return listClassroom;
+    }
+
+    public Classroom getClassroom(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Classroom classroom = null;
+        String query = "Select * from " + TABLE_NAME + " where id = "+ id;
+        Cursor cursor = db.rawQuery(query,null);
+        cursor.moveToFirst();
+        classroom = new Classroom(cursor.getInt(0), cursor.getString(1),cursor.getString(2));
+        return classroom;
     }
 }

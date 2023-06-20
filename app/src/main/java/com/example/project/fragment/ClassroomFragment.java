@@ -1,66 +1,84 @@
 package com.example.project.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.project.AddClassroomActivity;
 import com.example.project.R;
+import com.example.project.adapter.classroom.AdapterRecycle;
+import com.example.project.database.DatabaseClassroom;
+import com.example.project.model.Classroom;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ClassroomFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ClassroomFragment extends Fragment {
+import java.util.List;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class ClassroomFragment extends Fragment implements View.OnClickListener{
+    private View view;
+    private RecyclerView recyclerView;
+    private Button btnAdd;
+    private DatabaseClassroom db;
+    private List<Classroom> list;
+    private AdapterRecycle adapterRecycle;
+    private static final int REQUEST_CODE_CLASSROOM = 100023;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public ClassroomFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ClassroomFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ClassroomFragment newInstance(String param1, String param2) {
-        ClassroomFragment fragment = new ClassroomFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_classroom, container, false);
+        view = inflater.inflate(R.layout.fragment_classroom, container, false);
+        initView();
+        setupRecycleView();
+        btnAdd.setOnClickListener(this);
+        return view;
+    }
+
+    void initView(){
+        recyclerView = view.findViewById(R.id.recycleClassroom);
+        btnAdd = view.findViewById(R.id.btnAddClassroom);
+
+        // khởi tạo database
+        db = new DatabaseClassroom(this.getContext());
+        list = db.getListClassroom();
+    }
+
+    void setupRecycleView(){
+        LinearLayoutManager manager = new LinearLayoutManager(this.getContext(),LinearLayoutManager.VERTICAL,false);
+        adapterRecycle = new AdapterRecycle(list);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapterRecycle);
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btnAddClassroom:
+                Intent intent = new Intent(this.getContext(), AddClassroomActivity.class);
+                startActivityForResult(intent,REQUEST_CODE_CLASSROOM);
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_CLASSROOM){
+            list = db.getListClassroom();
+            adapterRecycle.setList(list);
+        }
     }
 }

@@ -18,7 +18,7 @@ import java.util.List;
 public class DatabaseStudent extends SQLiteOpenHelper {
     public static SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
     private static final String DATABASE_NAME = "ManagerStudents";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
     private static final String TABLE_NAME = "Students";
 
     private static final String KEY_ID = "id";
@@ -74,5 +74,15 @@ public class DatabaseStudent extends SQLiteOpenHelper {
             }
         }
         return listStudent;
+    }
+
+    public Student getStudent(int id) throws ParseException {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Student student = null;
+        String query = "Select * from "+ TABLE_NAME + " where id = " + id;
+        Cursor cursor = db.rawQuery(query,null);
+        cursor.moveToFirst();
+        student = new Student(cursor.getInt(0),cursor.getString(1),sf.parse(cursor.getString(2)),cursor.getString(3),cursor.getInt(4));
+        return student;
     }
 }

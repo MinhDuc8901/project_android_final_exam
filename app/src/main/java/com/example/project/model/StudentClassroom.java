@@ -14,6 +14,14 @@ public class StudentClassroom {
         this.credits = credits;
     }
 
+    public StudentClassroom(int id, int studentId, int classroomId, String semeter, int credits) {
+        this.id = id;
+        this.studentId = studentId;
+        this.classroomId = classroomId;
+        this.semeter = semeter;
+        this.credits = credits;
+    }
+
     public int getId() {
         return id;
     }

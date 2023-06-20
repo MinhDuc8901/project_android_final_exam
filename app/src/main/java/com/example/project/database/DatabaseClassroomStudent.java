@@ -14,11 +14,14 @@ import com.example.project.model.StudentClassroom;
 import java.security.Key;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class DatabaseClassroomStudent extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ManagerStudents";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
     private static final String TABLE_NAME = "classroom_student";
 
     private static final String KEY_ID = "id";
@@ -63,10 +66,20 @@ public class DatabaseClassroomStudent extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query,null);
         cursor.moveToFirst();
         while (cursor.isAfterLast() == false){
-            StudentClassroom studentClassroom = new StudentClassroom(cursor.getInt(1),cursor.getInt(2),cursor.getString(3),cursor.getInt(4));
+            StudentClassroom studentClassroom = new StudentClassroom(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),cursor.getString(3),cursor.getInt(4));
             list.add(studentClassroom);
             cursor.moveToNext();
         }
+        Collections.sort(list, new Comparator<StudentClassroom>() {
+            @Override
+            public int compare(StudentClassroom studentClassroom, StudentClassroom t1) {
+                if(studentClassroom.getStudentId()>t1.getStudentId()){
+                    return -1;
+                }else{
+                    return 1;
+                }
+            }
+        });
         return list;
     }
 }
