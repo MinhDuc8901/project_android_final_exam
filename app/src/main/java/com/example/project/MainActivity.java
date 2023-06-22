@@ -37,32 +37,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void setupEventBottomNavigation(){
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                switch (position){
-                    case 0 :
-                        bottomNavigationView.getMenu().findItem(R.id.menu_home).setChecked(true);
-                        break;
-                    case 1:
-                        bottomNavigationView.getMenu().findItem(R.id.menu_student).setChecked(true);
-                        break;
-                    case 2 :
-                        bottomNavigationView.getMenu().findItem(R.id.menu_classroom).setChecked(true);
-                        break;
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                switch (position){
+//                    case 0 :
+//                        bottomNavigationView.getMenu().findItem(R.id.menu_home).setChecked(true);
+//                        break;
+//                    case 1:
+//                        bottomNavigationView.getMenu().findItem(R.id.menu_student).setChecked(true);
+//                        break;
+//                    case 2 :
+//                        bottomNavigationView.getMenu().findItem(R.id.menu_classroom).setChecked(true);
+//                        break;
+//                }
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

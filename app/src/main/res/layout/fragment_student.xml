@@ -28,14 +28,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edtSearchStudent"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:layout_marginRight="10dp"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Search"
+            android:drawableLeft="@drawable/ic_search"
             android:id="@+id/btnSearchStudent"
-            android:layout_weight="6"
+            android:background="@drawable/custom_button"
+            android:layout_weight="7"
+            android:textColor="@color/white"
             />
     </LinearLayout>
     <Spinner
@@ -54,6 +56,7 @@
         android:text="Thêm sinh viên"
         android:layout_alignParentBottom="true"
         android:id="@+id/btnAddStudent"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        android:background="@drawable/custom_button"/>
 
 </RelativeLayout>

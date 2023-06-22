@@ -11,12 +11,14 @@
         android:layout_height="match_parent"
         android:id="@+id/viewPager"
         android:layout_above="@+id/bottomNavigation"/>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:id="@+id/bottomNavigation"
-        app:menu="@menu/menu_bottom"
-        android:background="@color/purple_200"/>
+        android:layout_marginBottom="0dp"
+        android:background="@color/purple_200"
+        app:menu="@menu/menu_bottom" />
 
 </RelativeLayout>

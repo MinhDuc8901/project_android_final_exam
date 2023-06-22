@@ -21,6 +21,7 @@ import com.example.project.R;
 import com.example.project.adapter.student.AdapterRecycle;
 import com.example.project.adapter.student.AdapterSpinner;
 import com.example.project.database.DatabaseStudent;
+import com.example.project.file.StudentFileStore;
 import com.example.project.model.Student;
 
 import java.util.ArrayList;
@@ -36,7 +37,8 @@ public class StudentFragment extends Fragment implements AdapterView.OnItemSelec
     private AdapterSpinner adapterSpinner;
     private List<Student> list;
     private static final int REQUEST_CODE_STUDENT = 10002;
-    private DatabaseStudent db;
+//    private DatabaseStudent db;
+    private StudentFileStore db;
     public StudentFragment() {
         // Required empty public constructor
     }
@@ -61,7 +63,9 @@ public class StudentFragment extends Fragment implements AdapterView.OnItemSelec
         spinner = view.findViewById(R.id.spinnerStudent);
         recyclerView = view.findViewById(R.id.recycleStudent);
 
-        db = new DatabaseStudent(this.getContext());
+//        db = new DatabaseStudent(this.getContext());
+//        list = db.getListStudent();
+        db = new StudentFileStore(this.getContext());
         list = db.getListStudent();
     }
 
@@ -142,6 +146,7 @@ public class StudentFragment extends Fragment implements AdapterView.OnItemSelec
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_CODE_STUDENT){
+//            list = db.getListStudent();
             list = db.getListStudent();
             adapter.setList(list);
         }

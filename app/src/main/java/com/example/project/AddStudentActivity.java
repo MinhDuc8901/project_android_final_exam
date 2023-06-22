@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.project.database.DatabaseStudent;
+import com.example.project.file.StudentFileStore;
 import com.example.project.model.Student;
 
 import java.sql.Struct;
@@ -19,7 +20,8 @@ public class AddStudentActivity extends AppCompatActivity implements View.OnClic
     private SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
     private Button btnAdd;
     private EditText edtName,edtBirth,editPlace,editYear;
-    private DatabaseStudent db;
+//    private DatabaseStudent db;
+    private StudentFileStore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +37,8 @@ public class AddStudentActivity extends AppCompatActivity implements View.OnClic
         editPlace = findViewById(R.id.edtplacestu);
         editYear = findViewById(R.id.edtstuyear);
 
-         db = new DatabaseStudent(this);
+//         db = new DatabaseStudent(this);
+        db = new StudentFileStore(this);
     }
 
     @Override
